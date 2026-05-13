@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Jackie!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:      #FFFAF3;
+      --warm-bg:    #FFF5E6;
+      --gold:       #C8973B;
+      --gold-light: #F0D49A;
+      --gold-dark:  #8B6520;
+      --rose:       #EDD0C8;
+      --rose-mid:   #D49082;
+      --text-dark:  #2C1810;
+      --text-mid:   #5C3D2A;
+      --text-soft:  #8B6B55;
+      --sp: clamp(60px, 8vw, 110px);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--text-dark); overflow-x:hidden; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center;
+      padding:4rem 2rem 5rem; position:relative; overflow:hidden;
+      background:radial-gradient(ellipse 100% 60% at 50% 0%, #FFF0D6 0%, var(--cream) 65%);
+    }
+    .petal {
+      position:absolute; border-radius:0 50% 50% 50%;
+      opacity:.35; animation:petal-fall linear infinite; pointer-events:none;
+    }
+    @keyframes petal-fall {
+      0%   { transform:translateY(-30px) rotate(0deg); opacity:0; }
+      8%   { opacity:.4; }
+      92%  { opacity:.15; }
+      100% { transform:translateY(110vh) rotate(720deg); opacity:0; }
+    }
+    .hero-eyebrow {
+      font-size:clamp(11px,1.6vw,14px); letter-spacing:.28em; text-transform:uppercase;
+      color:var(--gold); font-weight:500; margin-bottom:1.2rem;
+      animation:fade-up .9s ease both;
+    }
+    .hero-title {
+      font-family:'Cormorant Garamond',serif; font-weight:600;
+      font-size:clamp(52px,10vw,100px); line-height:1.04; color:var(--text-dark);
+      animation:fade-up .9s .12s ease both;
+    }
+    .hero-title em { font-style:italic; color:var(--gold-dark); }
+    .hero-divider {
+      width:72px; height:1px; margin:1.8rem auto;
+      background:linear-gradient(to right,transparent,var(--gold),transparent);
+      animation:scale-in .9s .24s ease both;
+    }
+    .hero-sub {
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:clamp(18px,3vw,26px); color:var(--text-mid);
+      max-width:540px; line-height:1.65;
+      animation:fade-up .9s .35s ease both;
+    }
+    .hero-badges {
+      display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center;
+      margin-top:2.2rem; animation:fade-up .9s .48s ease both;
+    }
+    .badge {
+      font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:500;
+      padding:.4rem 1rem; border-radius:100px;
+      background:#FFF0D6; color:var(--gold-dark); border:1px solid var(--gold-light);
+    }
+    .hero-scroll {
+      margin-top:3.5rem; display:flex; flex-direction:column; align-items:center; gap:8px;
+      color:var(--text-soft); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+      animation:fade-up .9s .6s ease both;
+    }
+    .scroll-line {
+      width:1px; height:44px;
+      background:linear-gradient(to bottom,var(--gold),transparent);
+      animation:scroll-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse {
+      0%,100% { opacity:1; transform:scaleY(1); transform-origin:top; }
+      50%      { opacity:.4; transform:scaleY(.45); transform-origin:top; }
+    }
+    @keyframes fade-up {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes scale-in {
+      from { transform:scaleX(0); }
+      to   { transform:scaleX(1); }
+    }
+
+    /* ── SECTION BASE ── */
+    .section-inner {
+      padding:var(--sp) clamp(1.5rem,6vw,5rem);
+      max-width:960px; margin:0 auto;
+    }
+    .label {
+      font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--gold); font-weight:600; margin-bottom:.6rem;
+    }
+    .section-h {
+      font-family:'Cormorant Garamond',serif; font-weight:600;
+      font-size:clamp(32px,5vw,52px); line-height:1.08;
+      color:var(--text-dark); margin-bottom:3rem;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position:relative; padding-left:1.8rem; }
+    .timeline::before {
+      content:''; position:absolute; left:0; top:4px;
+      width:1px; height:calc(100% - 4px);
+      background:linear-gradient(to bottom,var(--gold-light),transparent);
+    }
+    .tl-item {
+      position:relative; padding:0 0 3rem 2.2rem;
+      opacity:0; transform:translateX(-18px);
+      transition:opacity .65s ease,transform .65s ease;
+    }
+    .tl-item.visible { opacity:1; transform:translateX(0); }
+    .tl-dot {
+      position:absolute; left:-5px; top:7px;
+      width:11px; height:11px; border-radius:50%;
+      background:var(--gold); border:2px solid var(--cream);
+      box-shadow:0 0 0 3px var(--gold-light);
+    }
+    .tl-year {
+      font-size:11px; letter-spacing:.22em; color:var(--gold);
+      font-weight:600; text-transform:uppercase; margin-bottom:.25rem;
+    }
+    .tl-event {
+      font-family:'Cormorant Garamond',serif; font-size:clamp(20px,3vw,26px);
+      font-weight:600; color:var(--text-dark); margin-bottom:.45rem;
+    }
+    .tl-desc { font-size:15px; color:var(--text-mid); line-height:1.75; font-weight:300; }
+
+    /* ── KINDNESS METER ── */
+    .meter-wrap-outer { padding:0 clamp(1rem,4vw,4rem); max-width:960px; margin:0 auto 80px; }
+    .meter-card {
+      background:linear-gradient(135deg,#FFF8EE 0%,#FFEFD2 100%);
+      border:1px solid var(--gold-light); border-radius:28px;
+      padding:4rem clamp(1.5rem,5vw,4rem); text-align:center;
+    }
+    .meter-num {
+      font-family:'Cormorant Garamond',serif; font-size:clamp(60px,10vw,88px);
+      font-weight:600; color:var(--gold-dark); line-height:1;
+      margin:1rem 0 .3rem;
+    }
+    .meter-title {
+      font-family:'Cormorant Garamond',serif; font-size:clamp(20px,3vw,28px);
+      font-weight:600; color:var(--text-dark); margin-bottom:1.2rem;
+    }
+    .meter-bg {
+      height:12px; background:var(--rose); border-radius:100px;
+      max-width:480px; margin:0 auto .6rem; overflow:hidden;
+    }
+    .meter-fill {
+      height:100%; width:0%;
+      background:linear-gradient(to right,var(--gold-light),var(--gold));
+      border-radius:100px; transition:width 2.2s cubic-bezier(.16,1,.3,1);
+    }
+    .meter-cap { font-size:13px; color:var(--text-soft); letter-spacing:.04em; }
+    .meter-body {
+      font-size:15px; color:var(--text-mid); line-height:1.75;
+      font-weight:300; max-width:420px; margin:1.8rem auto 0;
+    }
+
+    /* ── CARD FLIP ── */
+    .card-section { text-align:center; padding:var(--sp) clamp(1.5rem,6vw,5rem); max-width:960px; margin:0 auto; }
+    .flip-card { perspective:1200px; width:min(400px,88vw); height:260px; margin:0 auto; cursor:pointer; }
+    .flip-inner {
+      width:100%; height:100%; position:relative;
+      transform-style:preserve-3d; transition:transform .85s cubic-bezier(.4,0,.2,1);
+    }
+    .flip-card:hover .flip-inner { transform:rotateY(180deg); }
+    .flip-face {
+      position:absolute; inset:0; border-radius:22px;
+      backface-visibility:hidden; display:flex;
+      flex-direction:column; align-items:center; justify-content:center; padding:2.2rem;
+    }
+    .flip-front {
+      background:linear-gradient(135deg,#FFF5E4,#F8E1C0);
+      border:1px solid var(--gold-light);
+    }
+    .flip-front h3 {
+      font-family:'Cormorant Garamond',serif; font-size:28px;
+      font-weight:600; color:var(--text-dark); margin-bottom:.4rem;
+    }
+    .flip-front p { font-size:14px; color:var(--text-soft); font-style:italic; }
+    .flip-back {
+      background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+      transform:rotateY(180deg);
+    }
+    .flip-back p {
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:clamp(15px,2.2vw,18px); color:#fff; line-height:1.75; text-align:center;
+    }
+    .flip-hint { font-size:13px; color:var(--text-soft); margin-top:1.1rem; font-style:italic; }
+
+    /* ── FOOTER / EASTER EGG ── */
+    footer {
+      text-align:center; padding:4rem 2rem;
+      border-top:1px solid var(--gold-light);
+    }
+    .heart-btn {
+      background:none; border:none; cursor:pointer;
+      font-size:36px; display:inline-block;
+      transition:transform .2s ease; line-height:1;
+    }
+    .heart-btn:hover { transform:scale(1.25); }
+    footer .foot-main { font-size:15px; color:var(--text-mid); margin-top:1rem; }
+    footer .foot-hint {
+      font-size:11px; letter-spacing:.18em; color:#C8B89A;
+      margin-top:.5rem; text-transform:uppercase;
+    }
+
+    /* ── CONFETTI ── */
+    #confetti-canvas {
+      position:fixed; inset:0; pointer-events:none; z-index:999;
+    }
+    /* ── KEYWORD SHOWER ── */
+    #kw-shower {
+      position:fixed; inset:0; pointer-events:none; z-index:998; overflow:hidden;
+    }
+    .kw {
+      position:absolute; font-family:'Cormorant Garamond',serif;
+      font-weight:600; font-style:italic; color:var(--gold-dark);
+      opacity:0; animation:kw-fall linear forwards;
+    }
+    @keyframes kw-fall {
+      0%   { opacity:0; transform:translateY(-40px) rotate(-8deg); }
+      12%  { opacity:1; }
+      80%  { opacity:.85; }
+      100% { opacity:0; transform:translateY(110vh) rotate(8deg); }
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(.84);
+      background:var(--cream); border:1.5px solid var(--gold-light);
+      border-radius:22px; padding:2.2rem 3rem; text-align:center;
+      z-index:1000; opacity:0; pointer-events:none;
+      transition:all .45s cubic-bezier(.34,1.56,.64,1); max-width:340px;
+    }
+    .toast.show { opacity:1; transform:translate(-50%,-50%) scale(1); pointer-events:all; }
+    .toast h2 {
+      font-family:'Cormorant Garamond',serif; font-size:34px;
+      font-weight:600; color:var(--gold-dark); margin-bottom:.4rem;
+    }
+    .toast p { font-size:15px; color:var(--text-mid); line-height:1.6; }
+    .toast-close {
+      margin-top:1.2rem; background:none; border:1px solid var(--gold-light);
+      border-radius:8px; padding:.45rem 1.6rem; cursor:pointer;
+      font-family:'Nunito',sans-serif; font-size:14px; color:var(--text-mid);
+      transition:background .2s;
+    }
+    .toast-close:hover { background:var(--gold-light); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:560px) {
+      .timeline { padding-left:1.2rem; }
+      .tl-item { padding-left:1.6rem; }
+      .meter-card { padding:2.5rem 1.5rem; }
+      .flip-card { height:230px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+<div id="kw-shower"></div>
+
+<!-- ████ HERO ████ -->
+<div class="hero" id="hero">
+  <p class="hero-eyebrow">A tribute to an extraordinary leader</p>
+  <h1 class="hero-title">Happy Birthday,<br><em>Jackie</em> &nbsp;🤍</h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">To the mentor who made every idea feel possible, every challenge feel conquerable, and every milestone feel truly earned.</p>
+  <div class="hero-badges">
+    <span class="badge">World-class Mentor</span>
+    <span class="badge">Empowering Leader</span>
+    <span class="badge">Heart of the Team</span>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ████ TIMELINE ████ -->
+<div class="section-inner" id="tl-section">
+  <p class="label">The journey we shared</p>
+  <h2 class="section-h">The Mentor's Impact</h2>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Day One</p>
+      <h3 class="tl-event">A Warm Welcome</h3>
+      <p class="tl-desc">From the very first day, Jackie made it clear that every voice mattered. Her open-door policy wasn't a policy — it was just who she is. That warmth set the foundation for everything that followed.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Milestone 1</p>
+      <h3 class="tl-event">The First Big Idea</h3>
+      <p class="tl-desc">When I pitched something unconventional, Jackie didn't hesitate — she championed it. That single vote of confidence rewired how I see myself as a professional and a creative thinker.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Milestone 2</p>
+      <h3 class="tl-event">Learning to Lead</h3>
+      <p class="tl-desc">Jackie trusted me with my first leadership opportunity before I trusted myself. She has this rare gift of seeing potential in people long before they see it in themselves, and then quietly, steadily, making space for it.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Milestone 3</p>
+      <h3 class="tl-event">Through the Hard Moments</h3>
+      <p class="tl-desc">When things got difficult, Jackie never minimised the challenge — she helped me reframe it. Her guidance didn't give me the answers; it helped me find them myself, which is so much more valuable.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Today</p>
+      <h3 class="tl-event">Still Growing, Still Grateful</h3>
+      <p class="tl-desc">The lessons Jackie has shared go far beyond any job description. She's shaped how I lead, how I listen, and how I show up for others. Happy Birthday, Jackie — thank you, endlessly.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ████ IMPACT METER ████ -->
+<div class="meter-wrap-outer">
+  <div class="meter-card" id="meter-card">
+    <p class="label">Measuring what matters</p>
+    <div class="meter-num" id="meter-num">0</div>
+    <h3 class="meter-title">People Touched by Jackie's Kindness</h3>
+    <div class="meter-bg"><div class="meter-fill" id="meter-fill"></div></div>
+    <p class="meter-cap">and still counting…</p>
+    <p class="meter-body">Every conversation held, every idea nurtured, every person lifted — the true impact of an exceptional mentor is simply immeasurable.</p>
+  </div>
+</div>
+
+<!-- ████ FLIP CARD ████ -->
+<div class="card-section">
+  <p class="label">From the heart</p>
+  <h2 class="section-h">A Thank You Card</h2>
+  <div class="flip-card" id="flip-card">
+    <div class="flip-inner">
+      <div class="flip-face flip-front">
+        <h3>Thank You, Jackie</h3>
+        <p>For everything seen and unseen</p>
+      </div>
+      <div class="flip-face flip-back">
+        <p>"A great mentor doesn't make you dependent on them — they make you believe in yourself. Jackie, you've done exactly that, and it's a gift I'll carry always."</p>
+      </div>
+    </div>
+  </div>
+  <p class="flip-hint">Hover over the card to reveal a message</p>
+</div>
+
+<!-- ████ FOOTER ████ -->
+<footer>
+  <button class="heart-btn" id="heart-btn" aria-label="Surprise!">🤍</button>
+  <p class="foot-main">Happy Birthday, Jackie — you are truly one of a kind.</p>
+  <p class="foot-hint">✦ &nbsp;try typing &nbsp; J · A · C · K · I · E &nbsp; ✦</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <h2>🎉 You found it!</h2>
+  <p>Jackie's kindness really is everywhere ✨</p>
+  <button class="toast-close" id="toast-close">Close</button>
+</div>
+
+<script>
+/* ── Floating petals ── */
+(function() {
+  const hero = document.getElementById('hero');
+  const cols = ['#F0D49A','#EDD0C8','#F5E6C8','#C8973B','#E8C5B0'];
+  for (let i = 0; i < 20; i++) {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    const s = 7 + Math.random() * 11;
+    el.style.cssText = [
+      `left:${Math.random()*100}%`,
+      `top:${Math.random()*100}%`,
+      `width:${s}px`,
+      `height:${s}px`,
+      `background:${cols[Math.floor(Math.random()*cols.length)]}`,
+      `animation-duration:${7+Math.random()*11}s`,
+      `animation-delay:${-Math.random()*16}s`,
+      `transform:rotate(${Math.random()*360}deg)`
+    ].join(';');
+    hero.appendChild(el);
+  }
+})();
+
+/* ── Timeline scroll-reveal ── */
+(function() {
+  const items = document.querySelectorAll('.tl-item');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 140);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18 });
+  items.forEach(el => obs.observe(el));
+})();
+
+/* ── Impact Meter ── */
+(function() {
+  let fired = false;
+  const target = 287;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !fired) {
+      fired = true;
+      document.getElementById('meter-fill').style.width = '87%';
+      let n = 0;
+      const step = Math.ceil(target / 75);
+      const t = setInterval(() => {
+        n = Math.min(n + step, target);
+        document.getElementById('meter-num').textContent = n + '+';
+        if (n >= target) clearInterval(t);
+      }, 22);
+    }
+  }, { threshold: 0.35 });
+  obs.observe(document.getElementById('meter-card'));
+})();
+
+/* ── Confetti engine ── */
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], rafId = null;
+
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const COLORS = ['#C8973B','#F0D49A','#EDD0C8','#D49082','#8B6520','#F5E6C8','#FFF0D6'];
+
+function launch() {
+  for (let i = 0; i < 140; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -12,
+      vx: (Math.random() - .5) * 5,
+      vy: 2.5 + Math.random() * 4.5,
+      sz: 5 + Math.random() * 9,
+      col: COLORS[Math.floor(Math.random() * COLORS.length)],
+      rot: Math.random() * Math.PI * 2,
+      rv: (Math.random() - .5) * .18,
+      life: 1,
+      round: Math.random() > .5
+    });
+  }
+  if (!rafId) tick();
+}
+
+function tick() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.y < canvas.height + 20);
+  if (!particles.length) { rafId = null; return; }
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.vy += .08;
+    p.rot += p.rv; p.life -= .004;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.col;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    if (p.round) {
+      ctx.beginPath(); ctx.arc(0, 0, p.sz/2, 0, Math.PI*2); ctx.fill();
+    } else {
+      ctx.fillRect(-p.sz/2, -p.sz/4, p.sz, p.sz/2);
+    }
+    ctx.restore();
+  });
+  rafId = requestAnimationFrame(tick);
+}
+
+/* ── Keyword shower ── */
+const WORDS = ['Empowering','Kind','Leader','Visionary','Inspiring','Generous','Brilliant','Warm','Mentor','Champion','Trustworthy','Innovative','Gracious','Thoughtful'];
+function showWords() {
+  const shower = document.getElementById('kw-shower');
+  shower.innerHTML = '';
+  WORDS.forEach((w, i) => {
+    const el = document.createElement('span');
+    el.className = 'kw';
+    el.textContent = w;
+    el.style.cssText = [
+      `left:${8 + Math.random()*84}%`,
+      `font-size:${17+Math.random()*18}px`,
+      `animation-duration:${2.8+Math.random()*3}s`,
+      `animation-delay:${i*.17}s`
+    ].join(';');
+    shower.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  });
+}
+
+/* ── Easter egg ── */
+function fireEgg() {
+  launch();
+  showWords();
+  document.getElementById('toast').classList.add('show');
+  clearTimeout(fireEgg._t);
+  fireEgg._t = setTimeout(() => document.getElementById('toast').classList.remove('show'), 4500);
+}
+
+document.getElementById('heart-btn').addEventListener('click', fireEgg);
+document.getElementById('toast-close').addEventListener('click', () => {
+  document.getElementById('toast').classList.remove('show');
+});
+
+/* ── Keyboard "JACKIE" listener ── */
+let typed = '';
+document.addEventListener('keydown', e => {
+  typed = (typed + e.key.toUpperCase()).slice(-10);
+  if (typed.includes('JACKIE')) { typed = ''; fireEgg(); }
+});
+</script>
+</body>
+</html>
